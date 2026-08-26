@@ -1,0 +1,40 @@
+# Node/JavaScript/Typescript
+node_modules/
+dist/
+build/
+*.map
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+.venv/
+*.egg-info/
+*.wheel
+*.dist-info/
+
+# Binär- und Mediendateien (aus deiner Liste)
+*.so
+*.exe
+*.dll
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.svg
+
+# Logs und Caches
+*.log
+.npm/
+.yarn/
+.cache/
+
+# IDEs und Editoren
+.vscode/
+.idea/
