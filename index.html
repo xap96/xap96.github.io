@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="de" class="h-full bg-slate-950 text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapido Assessment OS — Executive Pitch & Demo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            900: '#064e3b',
+                            accent: '#3b82f6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(16, 185, 129, 0.5);
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col overflow-x-hidden selection:bg-emerald-500 selection:text-white">
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 px-4 lg:px-8 py-3.5 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 font-black text-xl shadow-lg shadow-emerald-500/20">
+                R
+            </div>
+            <div>
+                <span class="font-bold text-lg tracking-tight text-white flex items-center gap-2">
+                    Rapido <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-semibold border border-emerald-500/30">Assessment OS</span>
+                </span>
+                <p class="text-[11px] text-slate-400 hidden sm:block">Die Evidence-to-Cash Pipeline für Haushaltsauflösungen</p>
+            </div>
+        </div>
+
+        <!-- Section Navigation -->
+        <nav class="hidden md:flex items-center space-x-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800">
+            <button onclick="switchTab('pitch')" id="nav-pitch" class="nav-btn active px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:text-white flex items-center gap-1.5">
+                <i data-lucide="presentation" class="w-3.5 h-3.5"></i> Executive Pitch
+            </button>
+            <button onclick="switchTab('demo')" id="nav-demo" class="nav-btn px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:text-white flex items-center gap-1.5">
+                <i data-lucide="play-circle" class="w-3.5 h-3.5 text-emerald-400"></i> Interactive Demo
+            </button>
+            <button onclick="switchTab('tech')" id="nav-tech" class="nav-btn px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:text-white flex items-center gap-1.5">
+                <i data-lucide="layers" class="w-3.5 h-3.5"></i> Architektur & Tech
+            </button>
+            <button onclick="switchTab('roi')" id="nav-roi" class="nav-btn px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:text-white flex items-center gap-1.5">
+                <i data-lucide="calculator" class="w-3.5 h-3.5"></i> ROI & Business Case
+            </button>
+            <button onclick="switchTab('roadmap')" id="nav-roadmap" class="nav-btn px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:text-white flex items-center gap-1.5">
+                <i data-lucide="map" class="w-3.5 h-3.5"></i> MVP Roadmap
+            </button>
+        </nav>
+
+        <!-- Right Quick Actions -->
+        <div class="flex items-center space-x-2">
+            <button onclick="togglePresenterMode()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20 transition-all flex items-center gap-1.5">
+                <i data-lucide="maximize" class="w-3.5 h-3.5"></i> <span class="hidden sm:inline">Präsentationsmodus</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Subnav Bar -->
+    <div class="md:hidden flex overflow-x-auto custom-scrollbar bg-slate-900 border-b border-slate-800 p-2 gap-2 text-xs">
+        <button onclick="switchTab('pitch')" id="mobile-nav-pitch" class="mobile-nav-btn whitespace-nowrap px-3 py-1 rounded-md bg-slate-800 text-emerald-400">Executive Pitch</button>
+        <button onclick="switchTab('demo')" id="mobile-nav-demo" class="mobile-nav-btn whitespace-nowrap px-3 py-1 rounded-md text-slate-400">Live Demo</button>
+        <button onclick="switchTab('tech')" id="mobile-nav-tech" class="mobile-nav-btn whitespace-nowrap px-3 py-1 rounded-md text-slate-400">Architektur</button>
+        <button onclick="switchTab('roi')" id="mobile-nav-roi" class="mobile-nav-btn whitespace-nowrap px-3 py-1 rounded-md text-slate-400">ROI Rechner</button>
+        <button onclick="switchTab('roadmap')" id="mobile-nav-roadmap" class="mobile-nav-btn whitespace-nowrap px-3 py-1 rounded-md text-slate-400">Roadmap</button>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6 flex flex-col">
+
+        <!-- VIEW 1: EXECUTIVE PITCH DECK -->
+        <section id="view-pitch" class="view-content space-y-8 animate-fadeIn">
+            <!-- Hero Header -->
+            <div class="relative overflow-hidden rounded-3xl p-8 lg:p-12 glass-panel border border-emerald-500/20 bg-gradient-to-br from-slate-900 via-slate-900/90 to-emerald-950/30">
+                <div class="absolute -right-20 -top-20 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="max-w-3xl space-y-4 relative z-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium border border-emerald-500/20">
+                        <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Proof of Concept & Business Case
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                        Schluss mit Nachkalkulationsverlusten bei <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200">Haushaltsauflösungen</span>.
+                    </h1>
+                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                        Das Rapido Assessment OS schließt die Lücke zwischen Erstbesichtigung und Räumungstag durch eine rechtssichere, offline-fähige **Evidence-to-Cash Pipeline**.
+                    </p>
+                    <div class="pt-4 flex flex-wrap gap-3">
+                        <button onclick="switchTab('demo')" class="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-emerald-500/25 flex items-center gap-2">
+                            <i data-lucide="play" class="w-4 h-4 fill-slate-950"></i> Live Demo starten
+                        </button>
+                        <button onclick="switchTab('roi')" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all border border-slate-700 flex items-center gap-2">
+                            <i data-lucide="calculator" class="w-4 h-4"></i> ROI berechnen
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Problem vs Solution Matrix -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Problem Card -->
+                <div class="glass-card rounded-2xl p-6 border-l-4 border-l-rose-500 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase tracking-wider text-rose-400 flex items-center gap-1.5">
+                            <i data-lucide="alert-triangle" class="w-4 h-4"></i> Das Kernproblem
+                        </span>
+                        <span class="text-xs text-slate-400 font-mono">Status Quo</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Der "Wert-Schwund" vor dem Räumungstag</h3>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="flex items-start gap-2.5">
+                            <i data-lucide="x-circle" class="w-4 h-4 text-rose-400 shrink-0 mt-0.5"></i>
+                            <span><b>Kalkulationsverlust:</b> Gegenrechnung wertvoller Antiquitäten vereinbart. Am Räumungstag ist das Moped weg – der Sperrmüll bleibt.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i data-lucide="x-circle" class="w-4 h-4 text-rose-400 shrink-0 mt-0.5"></i>
+                            <span><b>Beweisnot:</b> Unstrukturierte WhatsApp-Fotos und Papiernotizen halten Vor-Ort-Diskussionen oder Rechtsstreitigkeiten nicht stand.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i data-lucide="x-circle" class="w-4 h-4 text-rose-400 shrink-0 mt-0.5"></i>
+                            <span><b>Unvollständige Absprachen:</b> Mündliche Absprachen ("Küche bleibt stehen") werden vom Kunden im Nachhinein bestritten.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Solution Card -->
+                <div class="glass-card rounded-2xl p-6 border-l-4 border-l-emerald-500 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+                            <i data-lucide="check-circle-2" class="w-4 h-4"></i> Die Rapido-Lösung
+                        </span>
+                        <span class="text-xs text-emerald-400/80 font-mono">Assessment OS</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Die Evidence-to-Cash Pipeline</h3>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="flex items-start gap-2.5">
+                            <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                            <span><b>Vor-Ort-Dokumentation:</b> Offline-fähige Smartphone-Erfassung von Räumen, Fotos (inkl. Zeitstempel & SHA-256 Hash) und Risiken.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                            <span><b>Vertragsgenerator:</b> Business-Rules speisen automatisch maßgeschneiderte Schutzklauseln in das PDF-Angebot ein.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                            <span><b>Pre-Job-Check:</b> Digitaler Vor-Ort-Abgleich am Räumungstag zwingt bei Abweichungen zur Nachkalkulation *vor* Arbeitsbeginn.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Core Pillars -->
+            <div class="grid sm:grid-cols-3 gap-4">
+                <div class="glass-card p-5 rounded-xl space-y-2 border border-slate-800 hover:border-emerald-500/40 transition-all">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold">1</div>
+                    <h4 class="font-bold text-white text-base">Offline-First Mobile PWA</h4>
+                    <p class="text-xs text-slate-400">Funktioniert zuverlässig in staubigen Kellern und Funklöchern dank OPFS & IndexedDB Sync Queue.</p>
+                </div>
+                <div class="glass-card p-5 rounded-xl space-y-2 border border-slate-800 hover:border-emerald-500/40 transition-all">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold">2</div>
+                    <h4 class="font-bold text-white text-base">Hybrides Messsystem</h4>
+                    <p class="text-xs text-slate-400">Kombination aus erfahrener Vorarbeiter-Schätzung ($m^3$), Fotos und optionaler Laser-Messung.</p>
+                </div>
+                <div class="glass-card p-5 rounded-xl space-y-2 border border-slate-800 hover:border-emerald-500/40 transition-all">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold">3</div>
+                    <h4 class="font-bold text-white text-base">Margenschutz Loop</h4>
+                    <p class="text-xs text-slate-400">Beweisbare Foto-Historie verhindert unfreiwillige Gratis-Räumungen und Nachforderungsdispute.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 2: INTERACTIVE DEMO -->
+        <section id="view-demo" class="view-content hidden space-y-6">
+            <!-- Demo Header Stepper -->
+            <div class="glass-panel rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4 border border-slate-800">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <h2 class="font-bold text-white text-sm sm:text-base">Interactive Evidence-to-Cash Workflow Simulator</h2>
+                </div>
+
+                <div class="flex items-center space-x-2 text-xs font-medium">
+                    <button onclick="setDemoStep(1)" id="step-btn-1" class="step-btn px-3 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-bold">1. Besichtigung</button>
+                    <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-600"></i>
+                    <button onclick="setDemoStep(2)" id="step-btn-2" class="step-btn px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400">2. PDF Angebot</button>
+                    <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-600"></i>
+                    <button onclick="setDemoStep(3)" id="step-btn-3" class="step-btn px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400">3. Pre-Job-Check</button>
+                </div>
+            </div>
+
+            <!-- STEP 1: Vor-Ort-Erfassung -->
+            <div id="demo-step-1" class="demo-step-content space-y-6">
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <!-- Form Side -->
+                    <div class="lg:col-span-2 glass-card rounded-2xl p-6 space-y-6 border border-slate-800">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                            <div>
+                                <h3 class="font-bold text-white text-lg flex items-center gap-2">
+                                    <i data-lucide="clipboard-list" class="w-5 h-5 text-emerald-400"></i> Besichtigungsprotokoll (Tag 1)
+                                </h3>
+                                <p class="text-xs text-slate-400">Objekt: EFH Musterstraße 14, 24103 Kiel</p>
+                            </div>
+                            <span class="text-xs font-mono bg-slate-800 text-emerald-400 px-2.5 py-1 rounded-md border border-slate-700">Offline-Queue: 0 Items</span>
+                        </div>
+
+                        <!-- Stammdaten -->
+                        <div class="grid sm:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Kunde Name</label>
+                                <input type="text" id="input-client" value="Dr. Heinrich Weber" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Objekttyp</label>
+                                <select id="input-type" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                                    <option value="EFH">Einfamilienhaus (3 Etagen)</option>
+                                    <option value="Wohnung">Eigentumswohnung (2. OG, kein Aufzug)</option>
+                                    <option value="Gewerbe">Gewerbeobjekt / Lager</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Geschätztes Volumen ($m^3$)</label>
+                                <div class="flex items-center gap-2">
+                                    <input type="number" id="input-volume" value="35" oninput="updateDemoVolume(this.value)" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                                    <span class="text-xs text-slate-400 font-mono">m³</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Raum-Erfassung Component -->
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <label class="text-xs font-bold text-slate-300 uppercase tracking-wider">Erfasste Räume & Gegenstände</label>
+                                <button onclick="addRoom()" class="text-xs text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-1">
+                                    <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Raum hinzufügen
+                                </button>
+                            </div>
+
+                            <div id="room-container" class="space-y-3">
+                                <!-- Dynamic room item 1 -->
+                                <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <i data-lucide="box" class="w-4 h-4 text-emerald-400"></i>
+                                            <span class="font-bold text-sm text-white">Dachboden / Speicher</span>
+                                        </div>
+                                        <span class="text-[11px] font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded">Etage 2 (ohne Aufzug)</span>
+                                    </div>
+                                    <div class="grid sm:grid-cols-2 gap-3">
+                                        <div class="space-y-1">
+                                            <label class="text-[11px] text-slate-400">Sonderabsprache / Risiken</label>
+                                            <div class="flex items-center gap-2">
+                                                <input type="checkbox" id="check-mold" onchange="toggleClause('mold', this.checked)" class="rounded bg-slate-800 border-slate-700 text-emerald-500 focus:ring-emerald-500">
+                                                <span class="text-xs text-slate-300">Schimmel-Risiko festgestellt</span>
+                                            </div>
+                                        </div>
+                                        <div class="space-y-1">
+                                            <label class="text-[11px] text-slate-400">Wertanrechnung / Verbleib</label>
+                                            <div class="flex items-center gap-2">
+                                                <input type="checkbox" id="check-item-remaining" checked onchange="toggleClause('valueItem', this.checked)" class="rounded bg-slate-800 border-slate-700 text-emerald-500 focus:ring-emerald-500">
+                                                <span class="text-xs text-emerald-400 font-medium">Antikes Moped (Wertanrechnung 650€ - Verbleibt!)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Photo Attachment simulation -->
+                                    <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-xs">
+                                        <div class="flex items-center gap-2 text-slate-300">
+                                            <i data-lucide="camera" class="w-3.5 h-3.5 text-emerald-400"></i>
+                                            <span>Beweisfoto: <code class="font-mono text-[10px] text-slate-400">IMG_9842.jpg</code></span>
+                                        </div>
+                                        <span class="text-[10px] text-slate-400 font-mono">SHA-256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</span>
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic room item 2 -->
+                                <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <i data-lucide="box" class="w-4 h-4 text-emerald-400"></i>
+                                            <span class="font-bold text-sm text-white">Wohnzimmer & Küche</span>
+                                        </div>
+                                        <span class="text-[11px] font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded">EG</span>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <div class="flex items-center gap-2">
+                                            <input type="checkbox" id="check-kitchen-stay" checked onchange="toggleClause('kitchenStay', this.checked)" class="rounded bg-slate-800 border-slate-700 text-emerald-500 focus:ring-emerald-500">
+                                            <span class="text-xs text-slate-300">Einbauküche verbleibt im Objekt (Kunde baut selbst ab)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Preview -->
+                    <div class="space-y-4">
+                        <div class="glass-card rounded-2xl p-5 border border-emerald-500/30 space-y-4">
+                            <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                                <i data-lucide="sparkles" class="w-4 h-4 text-emerald-400"></i> Business Rule Engine Output
+                            </h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Aus deinen Angaben erzeugt das System in Echtzeit juristisch belastbare Schutzklauseln:
+                            </p>
+                            
+                            <div id="live-clauses-container" class="space-y-2 text-xs">
+                                <div id="clause-valueItem" class="p-2.5 rounded-lg bg-emerald-950/40 border border-emerald-500/30 text-emerald-200">
+                                    <span class="font-bold block mb-0.5">§ Wertanrechnungs-Klausel</span>
+                                    In die Preiskalkulation wurde ein Antikes Moped (Wertanrechnung: 650,00 €) eingerechnet. Sollte dieser Gegenstand am Räumungstag fehlen, erhöht sich der Endpreis entsprechend.
+                                </div>
+                                <div id="clause-kitchenStay" class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">
+                                    <span class="font-bold block text-slate-200 mb-0.5">§ Abbruch- / Haftungsausschluss Küche</span>
+                                    Die Einbauküche ist vom Kunden vor dem Räumungstermin vollständig zu entfernen. Verbleibt sie, fällt eine Nachgebühr an.
+                                </div>
+                                <div id="clause-mold" class="hidden p-2.5 rounded-lg bg-amber-950/40 border border-amber-500/30 text-amber-200">
+                                    <span class="font-bold block mb-0.5">§ Gefahrenstoff- & Schimmelklausel</span>
+                                    Schimmelbefall erfordert Spezialentsorgung. Mehrkosten werden nach tatsächlichem Aufwand abgerechnet.
+                                </div>
+                            </div>
+
+                            <button onclick="setDemoStep(2)" class="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs transition-all flex items-center justify-center gap-2">
+                                Angebot als PDF generieren <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2: PDF Angebot Preview -->
+            <div id="demo-step-2" class="demo-step-content hidden space-y-6">
+                <div class="max-w-4xl mx-auto glass-card rounded-2xl p-6 lg:p-10 border border-slate-700 bg-slate-900 shadow-2xl space-y-8 text-slate-200">
+                    <!-- PDF Mockup Header -->
+                    <div class="flex flex-wrap items-start justify-between border-b border-slate-700 pb-6 gap-4">
+                        <div>
+                            <div class="flex items-center gap-2 text-emerald-400 font-black text-xl mb-1">
+                                <div class="w-7 h-7 rounded-lg bg-emerald-500 text-slate-950 flex items-center justify-center text-sm font-bold">R</div>
+                                Rapido Entrümpelung & Service GmbH
+                            </div>
+                            <p class="text-xs text-slate-400">Industriestraße 42, 24103 Kiel • Tel: 0431 / 998877</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="inline-block px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-500/30 mb-2">OFFER-2026-0892</span>
+                            <p class="text-xs text-slate-400">Datum: 26.08.2026</p>
+                        </div>
+                    </div>
+
+                    <!-- PDF Body -->
+                    <div class="space-y-6 text-sm">
+                        <div class="grid sm:grid-cols-2 gap-4 p-4 rounded-xl bg-slate-950/50 border border-slate-800">
+                            <div>
+                                <span class="text-xs text-slate-400 block font-semibold">Auftraggeber:</span>
+                                <p class="font-medium text-white" id="pdf-client-name">Dr. Heinrich Weber</p>
+                            </div>
+                            <div>
+                                <span class="text-xs text-slate-400 block font-semibold">Objektadresse:</span>
+                                <p class="font-medium text-white">Musterstraße 14, 24103 Kiel</p>
+                            </div>
+                        </div>
+
+                        <!-- Services Table -->
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead class="bg-slate-800 text-slate-300 font-semibold uppercase">
+                                    <tr>
+                                        <th class="p-3">Pos.</th>
+                                        <th class="p-3">Leistungsbeschreibung</th>
+                                        <th class="p-3 text-right">Menge</th>
+                                        <th class="p-3 text-right">Gesamt (Netto)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-800 text-slate-300">
+                                    <tr>
+                                        <td class="p-3 font-mono">01</td>
+                                        <td class="p-3">Haushaltsauflösung & fachgerechte Entsorgung (EFH, ca. <span id="pdf-volume">35</span>m³)</td>
+                                        <td class="p-3 text-right">1 pauschal</td>
+                                        <td class="p-3 text-right font-mono">2.450,00 €</td>
+                                    </tr>
+                                    <tr id="pdf-row-credit" class="text-emerald-400 bg-emerald-950/20">
+                                        <td class="p-3 font-mono">02</td>
+                                        <td class="p-3">Wertanrechnung: Antikes Moped (gemäß Fotodokumentation Tag 1)</td>
+                                        <td class="p-3 text-right">1 Stk</td>
+                                        <td class="p-3 text-right font-mono">- 650,00 €</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot class="font-bold border-t-2 border-slate-700 text-white">
+                                    <tr>
+                                        <td colspan="3" class="p-3 text-right text-sm">Endbetrag (inkl. Wertanrechnung):</td>
+                                        <td class="p-3 text-right text-base text-emerald-400 font-mono" id="pdf-total-price">1.800,00 €</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        <!-- Schutzklauseln Section -->
+                        <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2 text-xs text-slate-300">
+                            <h5 class="font-bold text-white uppercase text-[11px] tracking-wider text-emerald-400">Besondere Schutzklauseln & Zustandsprotokoll (Evidence-Lock)</h5>
+                            <p class="italic text-slate-400">"Die Parteien halten den Zustand des Objekts am Besichtigungstag digital und per SHA-256 verifizierter Fotodokumentation fest. Das Angebot basiert strikt auf diesem Ist-Zustand."</p>
+                            <div class="pt-2 text-[11px] text-slate-400 space-y-1" id="pdf-clauses-list">
+                                <p>• Entfernte Wertgegenstände führen am Räumungstag zum Entfall der Wertanrechnung.</p>
+                                <p>• Nach der Besichtigung hinzugefügter Sperrmüll wird mit 45,00 €/m³ nachberechnet.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-800">
+                        <span class="text-xs text-slate-400 font-mono flex items-center gap-1.5">
+                            <i data-lucide="lock" class="w-3.5 h-3.5 text-emerald-400"></i> Signed & Sealed via Rapido Integrity Vault
+                        </span>
+                        <button onclick="setDemoStep(3)" class="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs transition-all flex items-center gap-2">
+                            Weiter zum Räumungstag (Pre-Job-Check Simulator) <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3: Pre-Job-Check Simulator -->
+            <div id="demo-step-3" class="demo-step-content hidden space-y-6">
+                <div class="glass-card rounded-2xl p-6 border border-emerald-500/30 space-y-6">
+                    <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-4 gap-4">
+                        <div>
+                            <span class="text-xs font-bold text-rose-400 uppercase tracking-wider flex items-center gap-1.5 mb-1">
+                                <i data-lucide="calendar" class="w-4 h-4"></i> Tag 14 — Der Räumungstag vor Ort
+                            </span>
+                            <h3 class="text-xl font-bold text-white">Pre-Job-Check am LKW</h3>
+                            <p class="text-xs text-slate-400">Vorarbeiter vergleicht Ist-Zustand mit den Fotos der Besichtigung *bevor* der erste Handgriff erfolgt.</p>
+                        </div>
+
+                        <!-- Interactive Scenario Switcher -->
+                        <div class="flex items-center gap-2 bg-slate-900 p-1.5 rounded-xl border border-slate-800 text-xs">
+                            <span class="text-slate-400 px-2">Szenario testen:</span>
+                            <button onclick="setScenario('match')" id="btn-scen-match" class="px-3 py-1 rounded-lg bg-slate-800 text-slate-300 font-medium">1. Zustände identisch (Match)</button>
+                            <button onclick="setScenario('delta')" id="btn-scen-delta" class="px-3 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40 font-bold">2. Moped fehlt & Sperrmüll +5m³ (Delta!)</button>
+                        </div>
+                    </div>
+
+                    <!-- Photo Comparison Grid -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Besichtigung Foto (Soll) -->
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="font-bold text-emerald-400 flex items-center gap-1.5">
+                                    <i data-lucide="image" class="w-4 h-4"></i> Tag 1: Besichtigungs-Foto (SOLL)
+                                </span>
+                                <span class="font-mono text-[11px] text-slate-400">26.08.2026 10:14</span>
+                            </div>
+                            <div class="relative rounded-xl overflow-hidden border border-slate-700 bg-slate-900 h-52 flex flex-col items-center justify-center text-center p-4">
+                                <div class="w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-3">
+                                    <i data-lucide="bike" class="w-8 h-8"></i>
+                                </div>
+                                <p class="text-xs font-bold text-white">Dachboden — Antikes Moped vorhanden</p>
+                                <p class="text-[11px] text-slate-400 mt-1">Gegenrechnung: 650 € • Status: Verbleibt im Objekt</p>
+                                <span class="absolute bottom-2 right-2 text-[10px] bg-slate-950/80 px-2 py-0.5 rounded font-mono text-emerald-400 border border-emerald-500/30">Verified SHA-256</span>
+                            </div>
+                        </div>
+
+                        <!-- Räumungstag Foto (Ist) -->
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="font-bold text-amber-400 flex items-center gap-1.5">
+                                    <i data-lucide="camera" class="w-4 h-4"></i> Tag 14: Pre-Job-Check (IST)
+                                </span>
+                                <span class="font-mono text-[11px] text-slate-400">Heute 08:02</span>
+                            </div>
+                            <div id="ist-photo-card" class="relative rounded-xl overflow-hidden border border-rose-500/40 bg-rose-950/20 h-52 flex flex-col items-center justify-center text-center p-4">
+                                <div id="ist-icon-container" class="w-16 h-16 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center mb-3">
+                                    <i data-lucide="alert-circle" class="w-8 h-8"></i>
+                                </div>
+                                <p id="ist-title" class="text-xs font-bold text-rose-200">ABWEICHUNG: Stellplatz ist leer!</p>
+                                <p id="ist-desc" class="text-[11px] text-rose-300/80 mt-1">Kunde hat Moped heimlich entfernt. Zusätzlich +5m³ Unrat im Keller gestapelt.</p>
+                                <span id="ist-badge" class="absolute bottom-2 right-2 text-[10px] bg-rose-500 text-slate-950 font-bold px-2 py-0.5 rounded">DELTA DETECTED</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Repricing Result Box -->
+                    <div id="repricing-box" class="p-5 rounded-2xl bg-rose-950/30 border border-rose-500/40 space-y-4">
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center font-black text-lg">!</div>
+                                <div>
+                                    <h4 class="font-bold text-white text-base">Automatische Preis-Korrektur aktiv</h4>
+                                    <p class="text-xs text-rose-200/80">Basierend auf Besichtigungs-Klausel §2 (Wertverlust & Mehraufwand)</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs text-slate-400 block">Neuer Vertragspreis:</span>
+                                <span class="text-2xl font-black text-emerald-400 font-mono">2.675,00 €</span>
+                                <span class="text-xs text-rose-400 font-semibold block">+ 875,00 € Nachforderung</span>
+                            </div>
+                        </div>
+
+                        <!-- Repricing breakdown -->
+                        <div class="grid sm:grid-cols-2 gap-3 text-xs pt-2 border-t border-rose-500/20">
+                            <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+                                <span class="text-slate-400 block">Entfallene Wertanrechnung:</span>
+                                <span class="text-white font-bold font-mono text-sm">+ 650,00 €</span>
+                            </div>
+                            <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+                                <span class="text-slate-400 block">Mehraufwand Sperrmüll (+5m³ × 45€):</span>
+                                <span class="text-white font-bold font-mono text-sm">+ 225,00 €</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-2">
+                            <span class="text-xs text-slate-300 italic">Kunde bestätigt Neukalkulation auf Smartphone vor Beginn.</span>
+                            <button onclick="alertModal('Erfolg!', 'Die Neukalkulation von +875,00 € wurde vom Kunden digital abgezeichnet. Der Räumungsauftrag ist freigegeben!')" class="px-5 py-2 rounded-xl bg-rose-500 hover:bg-rose-600 text-slate-950 font-bold text-xs transition-all shadow-lg shadow-rose-500/20">
+                                Neukalkulation zeichnen & Räumung starten
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 3: TECH & ARCHITECTURE -->
+        <section id="view-tech" class="view-content hidden space-y-8">
+            <div class="glass-panel rounded-3xl p-8 border border-slate-800 space-y-6">
+                <div>
+                    <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">System-Architektur</span>
+                    <h2 class="text-2xl font-bold text-white mt-1">Offline-First & Evidence Integrity Engine</h2>
+                    <p class="text-xs text-slate-400 mt-1">Entwickelt für extrem unzuverlässige Netzabdeckung (Keller, Dachböden) und rechtlich belastbare Beweissicherung.</p>
+                </div>
+
+                <!-- Architecture Diagram Visualizer -->
+                <div class="p-6 rounded-2xl bg-slate-950 border border-slate-800 overflow-x-auto custom-scrollbar">
+                    <div class="min-w-[650px] flex items-center justify-between gap-4 text-center">
+                        <!-- Mobile Layer -->
+                        <div class="flex-1 space-y-3 p-4 rounded-xl bg-slate-900 border border-slate-800">
+                            <span class="text-xs font-bold text-emerald-400 block uppercase">Client Layer (PWA)</span>
+                            <div class="space-y-2 text-xs">
+                                <div class="p-2 rounded bg-slate-800 text-slate-200">IndexedDB (Metadata)</div>
+                                <div class="p-2 rounded bg-slate-800 text-slate-200">OPFS (Large Media Blobs)</div>
+                                <div class="p-2 rounded bg-emerald-950 text-emerald-300 font-mono text-[11px]">Sync Queue Manager</div>
+                            </div>
+                        </div>
+
+                        <i data-lucide="arrow-right" class="w-6 h-6 text-emerald-500 shrink-0"></i>
+
+                        <!-- Gateway Layer -->
+                        <div class="flex-1 space-y-3 p-4 rounded-xl bg-slate-900 border border-slate-800">
+                            <span class="text-xs font-bold text-teal-400 block uppercase">Go API Gateway</span>
+                            <div class="space-y-2 text-xs">
+                                <div class="p-2 rounded bg-slate-800 text-slate-200">JWT / Auth Guard</div>
+                                <div class="p-2 rounded bg-slate-800 text-slate-200">SHA-256 Hash Verification</div>
+                                <div class="p-2 rounded bg-teal-950 text-teal-300 font-mono text-[11px]">Business Rule Engine</div>
+                            </div>
+                        </div>
+
+                        <i data-lucide="arrow-right" class="w-6 h-6 text-emerald-500 shrink-0"></i>
+
+                        <!-- Persistence Layer -->
+                        <div class="flex-1 space-y-3 p-4 rounded-xl bg-slate-900 border border-slate-800">
+                            <span class="text-xs font-bold text-blue-400 block uppercase">Backend Services</span>
+                            <div class="space-y-2 text-xs">
+                                <div class="p-2 rounded bg-slate-800 text-slate-200">PostgreSQL / Appwrite</div>
+                                <div class="p-2 rounded bg-slate-800 text-slate-200">S3 / Object Storage</div>
+                                <div class="p-2 rounded bg-blue-950 text-blue-300 font-mono text-[11px]">PDF Generator Engine</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assurance Levels Grid -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-white">Gestufte Evidence Assurance Levels</h3>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                        <div class="glass-card p-4 rounded-xl border border-slate-800 space-y-2">
+                            <span class="font-mono text-emerald-400 font-bold block">Level A1 (Basic)</span>
+                            <p class="text-slate-300 font-semibold">User + Timestamp + SHA256</p>
+                            <p class="text-slate-400">Standard-Besichtigung vor Ort. Ausreichend für 90% aller Privataufträge.</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl border border-slate-800 space-y-2">
+                            <span class="font-mono text-emerald-400 font-bold block">Level A2 (Advanced)</span>
+                            <p class="text-slate-300 font-semibold">Erweiterte Touch-Signatur</p>
+                            <p class="text-slate-400">Kundenbestätigung direkt auf dem Smartphone vor Ort.</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl border border-slate-800 space-y-2">
+                            <span class="font-mono text-emerald-400 font-bold block">Level A3 (High)</span>
+                            <p class="text-slate-300 font-semibold">RFC 3161 Zeitstempel</p>
+                            <p class="text-slate-400">Kryptografisch gewahrter Zeitpunkt bei Streitfällen mit Erbgemeinschaften.</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl border border-slate-800 space-y-2">
+                            <span class="font-mono text-emerald-400 font-bold block">Level A4 (Enterprise)</span>
+                            <p class="text-slate-300 font-semibold">QES / eIDAS Signatur</p>
+                            <p class="text-slate-400">Qualifizierte elektronische Signatur für gewerbliche Großaufträge & Ämter.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 4: ROI & BUSINESS CASE -->
+        <section id="view-roi" class="view-content hidden space-y-8">
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Interactive Calculator Slider -->
+                <div class="lg:col-span-2 glass-panel rounded-3xl p-6 sm:p-8 border border-slate-800 space-y-6">
+                    <div>
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Interaktiver ROI-Rechner</span>
+                        <h2 class="text-2xl font-bold text-white mt-1">Umsatzschutz & Ersparnis berechnen</h2>
+                        <p class="text-xs text-slate-400 mt-1">Finde heraus, wie viel Umsatz das Rapido Assessment OS in deinem Betrieb pro Jahr schützt.</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Slider 1 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs">
+                                <span class="text-slate-300 font-medium">Besichtigungen / Aufträge pro Monat:</span>
+                                <span id="val-jobs" class="font-bold text-emerald-400 font-mono text-sm">15 Aufträge</span>
+                            </div>
+                            <input type="range" id="slider-jobs" min="5" max="60" value="15" oninput="calculateROI()" class="w-full accent-emerald-500 bg-slate-800 rounded-lg cursor-pointer">
+                        </div>
+
+                        <!-- Slider 2 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs">
+                                <span class="text-slate-300 font-medium">Durchschnittlicher Auftragswert (€):</span>
+                                <span id="val-ticket" class="font-bold text-emerald-400 font-mono text-sm">2.200 €</span>
+                            </div>
+                            <input type="range" id="slider-ticket" min="800" max="5000" step="100" value="2200" oninput="calculateROI()" class="w-full accent-emerald-500 bg-slate-800 rounded-lg cursor-pointer">
+                        </div>
+
+                        <!-- Slider 3 -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs">
+                                <span class="text-slate-300 font-medium">Geschätzte Abweichungsquote am Räumungstag (%):</span>
+                                <span id="val-rate" class="font-bold text-emerald-400 font-mono text-sm">20 % der Aufträge</span>
+                            </div>
+                            <input type="range" id="slider-rate" min="5" max="50" step="5" value="20" oninput="calculateROI()" class="w-full accent-emerald-500 bg-slate-800 rounded-lg cursor-pointer">
+                        </div>
+                    </div>
+
+                    <!-- Result Grid -->
+                    <div class="grid sm:grid-cols-3 gap-4 pt-4 border-t border-slate-800">
+                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                            <span class="text-[11px] text-slate-400 block">Aufgedeckter Margenverlust / Jahr</span>
+                            <span id="roi-loss-prevented" class="text-xl font-bold text-emerald-400 font-mono">15.840 €</span>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                            <span class="text-[11px] text-slate-400 block">Gesparte Zeit im Büro (Std/Jahr)</span>
+                            <span id="roi-hours-saved" class="text-xl font-bold text-teal-400 font-mono">108 Std</span>
+                        </div>
+                        <div class="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/30 space-y-1">
+                            <span class="text-[11px] text-emerald-300 block">Netto-ROI des Systems</span>
+                            <span id="roi-factor" class="text-xl font-bold text-emerald-400 font-mono">14.2×</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Model Card -->
+                <div class="glass-panel rounded-3xl p-6 border border-slate-800 space-y-6">
+                    <div>
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Monetarisierung</span>
+                        <h3 class="text-xl font-bold text-white mt-1">SaaS-Pakete (Post-Beta)</h3>
+                    </div>
+
+                    <div class="space-y-4 text-xs">
+                        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-white text-sm">Starter / Solo</span>
+                                <span class="font-bold text-emerald-400 font-mono text-base">79 € <span class="text-[10px] text-slate-400 font-normal">/Monat</span></span>
+                            </div>
+                            <p class="text-slate-400">1 Vorarbeiter • Unbegrenzte Besichtigungen • PDF Generator & Pre-Job-Check</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-emerald-950/40 border border-emerald-500/40 space-y-2 relative overflow-hidden">
+                            <span class="absolute top-2 right-2 text-[9px] bg-emerald-500 text-slate-950 font-black px-2 py-0.5 rounded uppercase">Empfohlen</span>
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-white text-sm">Business Team</span>
+                                <span class="font-bold text-emerald-400 font-mono text-base">149 € <span class="text-[10px] text-slate-400 font-normal">/Monat</span></span>
+                            </div>
+                            <p class="text-slate-300">Bis zu 5 Vorarbeiter • RFC 3161 Zeitstempel • Custom Schutzklausel Engine</p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-white text-sm">Pay-per-Inspection</span>
+                                <span class="font-bold text-emerald-400 font-mono text-base">4,90 € <span class="text-[10px] text-slate-400 font-normal">/Objekt</span></span>
+                            </div>
+                            <p class="text-slate-400">Flexibles Modell für Gelegenheits-Entrümpler ohne fixe Grundgebühr.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 5: ROADMAP & KPIs -->
+        <section id="view-roadmap" class="view-content hidden space-y-8">
+            <div class="glass-panel rounded-3xl p-8 border border-slate-800 space-y-6">
+                <div>
+                    <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Validierungs-Roadmap</span>
+                    <h2 class="text-2xl font-bold text-white mt-1">7-Wochen Lean MVP Launch Plan</h2>
+                    <p class="text-xs text-slate-400 mt-1">Fokussierter Test im realen Geschäftsbetrieb bei Rapido Entrümpelung.</p>
+                </div>
+
+                <!-- Timeline -->
+                <div class="grid md:grid-cols-4 gap-4">
+                    <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-2 relative">
+                        <span class="text-xs font-mono text-emerald-400 font-bold block">Woche 1 – 2</span>
+                        <h4 class="font-bold text-white text-sm">Minimal-MVP Build</h4>
+                        <p class="text-xs text-slate-400">Erfassungs-PWA, SHA-256 Foto-Upload, Offline-Queue & PDF-Export aufsetzen.</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
+                        <span class="text-xs font-mono text-emerald-400 font-bold block">Woche 3 – 4</span>
+                        <h4 class="font-bold text-white text-sm">Feldtest Rapido</h4>
+                        <p class="text-xs text-slate-400">3–5 echte Besichtigungen vor Ort durchführen. Feedback zu Formularfeldern und Klauseln.</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
+                        <span class="text-xs font-mono text-emerald-400 font-bold block">Woche 5 – 6</span>
+                        <h4 class="font-bold text-white text-sm">Pre-Job Validation</h4>
+                        <p class="text-xs text-slate-400">Erstmals Pre-Job-Check am Räumungstag anwenden. Messen: Aufgedeckte Deltas & Nachkalkulation.</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 space-y-2">
+                        <span class="text-xs font-mono text-emerald-400 font-bold block">Woche 7</span>
+                        <h4 class="font-bold text-white text-sm">Evaluation & Rollout</h4>
+                        <p class="text-xs text-slate-300">Auswertung der KPIs. Entscheidung über Phase 2 (Laser-Anbindung & KI-Extraktion).</p>
+                    </div>
+                </div>
+
+                <!-- KPIs -->
+                <div class="grid sm:grid-cols-3 gap-4 pt-4 border-t border-slate-800">
+                    <div class="glass-card p-4 rounded-xl text-center space-y-1 border border-slate-800">
+                        <span class="text-2xl font-black text-emerald-400 font-mono">&lt; 10 Min</span>
+                        <span class="text-xs text-slate-300 block font-semibold">Erstellungszeit Angebot</span>
+                        <span class="text-[11px] text-slate-400 block">Statt bisher 45 Min im Büro</span>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl text-center space-y-1 border border-slate-800">
+                        <span class="text-2xl font-black text-emerald-400 font-mono">100 %</span>
+                        <span class="text-xs text-slate-300 block font-semibold">Akzeptanz im Feld</span>
+                        <span class="text-[11px] text-slate-400 block">Kein Rückfall auf Zettel & Stift</span>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl text-center space-y-1 border border-slate-800">
+                        <span class="text-2xl font-black text-emerald-400 font-mono">&gt; 1 Fall</span>
+                        <span class="text-xs text-slate-300 block font-semibold">Nachkalkulation im Test</span>
+                        <span class="text-[11px] text-slate-400 block">Erfolgreicher Nachweis des ROI</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal Dialog (Replaces alerts) -->
+    <div id="custom-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="glass-card max-w-md w-full rounded-2xl p-6 border border-emerald-500/30 space-y-4 shadow-2xl">
+            <h3 id="modal-title" class="text-lg font-bold text-white"></h3>
+            <p id="modal-body" class="text-xs text-slate-300 leading-relaxed"></p>
+            <button onclick="closeModal()" class="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs transition-all">
+                Verstanden
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentTab = 'pitch';
+        let isPresenterMode = false;
+        let activeScenario = 'delta';
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            currentTab = tabId;
+            document.querySelectorAll('.view-content').forEach(view => view.classList.add('hidden'));
+            document.getElementById(`view-${tabId}`).classList.remove('hidden');
+
+            // Update Desktop Nav
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-slate-800', 'text-emerald-400');
+                btn.classList.add('text-slate-300');
+            });
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if(activeNav) {
+                activeNav.classList.add('active', 'bg-slate-800', 'text-emerald-400');
+            }
+
+            // Update Mobile Nav
+            document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+                btn.classList.remove('bg-slate-800', 'text-emerald-400');
+                btn.classList.add('text-slate-400');
+            });
+            const activeMobileNav = document.getElementById(`mobile-nav-${tabId}`);
+            if(activeMobileNav) {
+                activeMobileNav.classList.add('bg-slate-800', 'text-emerald-400');
+            }
+
+            // Re-initialize Lucide icons
+            lucide.createIcons();
+        }
+
+        // Demo Stepper Logic
+        function setDemoStep(stepNum) {
+            document.querySelectorAll('.demo-step-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`demo-step-${stepNum}`).classList.remove('hidden');
+
+            document.querySelectorAll('.step-btn').forEach(btn => {
+                btn.classList.remove('bg-emerald-500', 'text-slate-950', 'font-bold');
+                btn.classList.add('bg-slate-800', 'text-slate-400');
+            });
+            const activeStepBtn = document.getElementById(`step-btn-${stepNum}`);
+            if(activeStepBtn) {
+                activeStepBtn.classList.remove('bg-slate-800', 'text-slate-400');
+                activeStepBtn.classList.add('bg-emerald-500', 'text-slate-950', 'font-bold');
+            }
+            lucide.createIcons();
+        }
+
+        // Clause Toggling Demo
+        function toggleClause(clauseKey, isChecked) {
+            const clauseEl = document.getElementById(`clause-${clauseKey}`);
+            if(clauseEl) {
+                if(isChecked) {
+                    clauseEl.classList.remove('hidden');
+                } else {
+                    clauseEl.classList.add('hidden');
+                }
+            }
+            updatePDFPreview();
+        }
+
+        // Update PDF Preview Values
+        function updatePDFPreview() {
+            const clientName = document.getElementById('input-client')?.value || "Dr. Heinrich Weber";
+            const volume = document.getElementById('input-volume')?.value || "35";
+            const hasRemainingItem = document.getElementById('check-item-remaining')?.checked;
+
+            if(document.getElementById('pdf-client-name')) {
+                document.getElementById('pdf-client-name').innerText = clientName;
+            }
+            if(document.getElementById('pdf-volume')) {
+                document.getElementById('pdf-volume').innerText = volume;
+            }
+
+            const rowCredit = document.getElementById('pdf-row-credit');
+            const totalPriceEl = document.getElementById('pdf-total-price');
+            
+            if(rowCredit && totalPriceEl) {
+                if(hasRemainingItem) {
+                    rowCredit.classList.remove('hidden');
+                    totalPriceEl.innerText = "1.800,00 €";
+                } else {
+                    rowCredit.classList.add('hidden');
+                    totalPriceEl.innerText = "2.450,00 €";
+                }
+            }
+        }
+
+        function updateDemoVolume(val) {
+            if(document.getElementById('pdf-volume')) {
+                document.getElementById('pdf-volume').innerText = val;
+            }
+        }
+
+        // Pre-Job-Check Scenario Switcher
+        function setScenario(scen) {
+            activeScenario = scen;
+            const card = document.getElementById('ist-photo-card');
+            const iconContainer = document.getElementById('ist-icon-container');
+            const title = document.getElementById('ist-title');
+            const desc = document.getElementById('ist-desc');
+            const badge = document.getElementById('ist-badge');
+            const repricingBox = document.getElementById('repricing-box');
+
+            const btnMatch = document.getElementById('btn-scen-match');
+            const btnDelta = document.getElementById('btn-scen-delta');
+
+            if(scen === 'match') {
+                btnMatch.className = "px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold";
+                btnDelta.className = "px-3 py-1 rounded-lg bg-slate-800 text-slate-300 font-medium";
+
+                card.className = "relative rounded-xl overflow-hidden border border-emerald-500/40 bg-emerald-950/20 h-52 flex flex-col items-center justify-center text-center p-4";
+                iconContainer.className = "w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-3";
+                iconContainer.innerHTML = '<i data-lucide="check-circle" class="w-8 h-8"></i>';
+                title.className = "text-xs font-bold text-emerald-200";
+                title.innerText = "ZUSTAND UNVERÄNDERT (MATCH)";
+                desc.className = "text-[11px] text-emerald-300/80 mt-1";
+                desc.innerText = "Alle Gegenstände entsprechen der Fotodokumentation der Besichtigung.";
+                badge.className = "absolute bottom-2 right-2 text-[10px] bg-emerald-500 text-slate-950 font-bold px-2 py-0.5 rounded";
+                badge.innerText = "MATCH 100%";
+
+                repricingBox.classList.add('hidden');
+            } else {
+                btnDelta.className = "px-3 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40 font-bold";
+                btnMatch.className = "px-3 py-1 rounded-lg bg-slate-800 text-slate-300 font-medium";
+
+                card.className = "relative rounded-xl overflow-hidden border border-rose-500/40 bg-rose-950/20 h-52 flex flex-col items-center justify-center text-center p-4";
+                iconContainer.className = "w-16 h-16 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center mb-3";
+                iconContainer.innerHTML = '<i data-lucide="alert-circle" class="w-8 h-8"></i>';
+                title.className = "text-xs font-bold text-rose-200";
+                title.innerText = "ABWEICHUNG: Stellplatz ist leer!";
+                desc.className = "text-[11px] text-rose-300/80 mt-1";
+                desc.innerText = "Kunde hat Moped heimlich entfernt. Zusätzlich +5m³ Unrat im Keller gestapelt.";
+                badge.className = "absolute bottom-2 right-2 text-[10px] bg-rose-500 text-slate-950 font-bold px-2 py-0.5 rounded";
+                badge.innerText = "DELTA DETECTED";
+
+                repricingBox.classList.remove('hidden');
+            }
+            lucide.createIcons();
+        }
+
+        // Add Room Simulation
+        function addRoom() {
+            const container = document.getElementById('room-container');
+            const roomDiv = document.createElement('div');
+            roomDiv.className = "p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3 animate-fadeIn";
+            roomDiv.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="box" class="w-4 h-4 text-emerald-400"></i>
+                        <span class="font-bold text-sm text-white">Neuer Raum (z.B. Keller / Garage)</span>
+                    </div>
+                    <span class="text-[11px] font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded">Untergeschoss</span>
+                </div>
+                <div class="text-xs text-slate-400">
+                    <p>Erfasst: 12 m³ Mischabfall • 1 Foto gespeichert</p>
+                </div>
+            `;
+            container.appendChild(roomDiv);
+            lucide.createIcons();
+        }
+
+        // ROI Calculator Logic
+        function calculateROI() {
+            const jobs = parseInt(document.getElementById('slider-jobs').value);
+            const ticket = parseInt(document.getElementById('slider-ticket').value);
+            const rate = parseInt(document.getElementById('slider-rate').value) / 100;
+
+            document.getElementById('val-jobs').innerText = `${jobs} Aufträge`;
+            document.getElementById('val-ticket').innerText = `${ticket.toLocaleString('de-DE')} €`;
+            document.getElementById('val-rate').innerText = `${Math.round(rate * 100)} % der Aufträge`;
+
+            // Average loss per unmonitored delta = ~600 €
+            const annualJobs = jobs * 12;
+            const deltaJobs = annualJobs * rate;
+            const lossPrevented = Math.round(deltaJobs * 600);
+            const hoursSaved = Math.round(annualJobs * 0.6); // 35 min saved per job
+            const costOfSaaS = 149 * 12; // 1.788 € / year
+            const roiFactor = ((lossPrevented) / costOfSaaS).toFixed(1);
+
+            document.getElementById('roi-loss-prevented').innerText = `${lossPrevented.toLocaleString('de-DE')} €`;
+            document.getElementById('roi-hours-saved').innerText = `${hoursSaved} Std`;
+            document.getElementById('roi-factor').innerText = `${roiFactor}×`;
+        }
+
+        // Modal Handler
+        function alertModal(title, body) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-body').innerText = body;
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        // Presenter Mode Toggle
+        function togglePresenterMode() {
+            isPresenterMode = !isPresenterMode;
+            if(isPresenterMode) {
+                document.documentElement.requestFullscreen?.();
+            } else {
+                document.exitFullscreen?.();
+            }
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            lucide.createIcons();
+            calculateROI();
+        }
+    </script>
+</body>
+</html>
